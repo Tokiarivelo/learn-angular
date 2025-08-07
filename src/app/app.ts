@@ -1,19 +1,11 @@
 import { Component } from '@angular/core';
-import { Home } from './home/home';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [Home, MatIconModule],
-  template: ` <main>
-    <header class="brand-name">
-      <h1>{{ title }}</h1>
-      <mat-icon>home</mat-icon>
-    </header>
-    <section class="content">
-      <app-home></app-home>
-    </section>
-  </main>`,
+  imports: [MatIconModule, RouterModule],
+  templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
