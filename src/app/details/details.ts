@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Housing } from '../housing';
-import { HousingLocationInfo } from '../housinglocation';
+import { HousingService } from '../housing.service';
+import { HousingLocationInfo } from '../housinglocation.interface';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class Details {
   route: ActivatedRoute = inject(ActivatedRoute);
 
-  housingService = inject(Housing);
+  housingService = inject(HousingService);
   housingLocation: HousingLocationInfo | undefined;
 
   applyForm = new FormGroup({
@@ -25,8 +25,11 @@ export class Details {
 
   constructor() {
     const housingLocationId = Number(this.route.snapshot.params['id']);
-    this.housingLocation =
-      this.housingService.getHousingLocationById(housingLocationId);
+    this.housingService
+      .getHousingLocationById(housingLocationId)
+      .then((housingLocation) => {
+        this.housingLocation = housingLocation;
+      });
   }
 
   submitApplication() {
